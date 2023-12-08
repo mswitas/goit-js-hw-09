@@ -2,10 +2,6 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import Notiflix from 'notiflix';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { Report } from 'notiflix/build/notiflix-report-aio';
-import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
-import { Loading } from 'notiflix/build/notiflix-loading-aio';
-import { Block } from 'notiflix/build/notiflix-block-aio';
 
 const options = {
   enableTime: true,
@@ -35,14 +31,20 @@ startButton.addEventListener('click', (event) => {
     const hoursDisplay = document.querySelector('[data-hours]');
     const daysDisplay = document.querySelector('[data-days]');
     const intervalId = setInterval(() => {
-        const currentDate = new Date();
-        const currentTimestamp = currentDate.getTime();
-        const ms = selectedTimestamp - currentTimestamp;
-        const remainingTimeObject = convertMs(ms);
-        secondsDisplay.innerHTML = addLeadingZero(remainingTimeObject.seconds);
-        minutessDisplay.innerHTML = addLeadingZero(remainingTimeObject.minutes);
-        hoursDisplay.innerHTML = addLeadingZero(remainingTimeObject.hours);
-        daysDisplay.innerHTML = addLeadingZero(remainingTimeObject.days);
+      const currentDate = new Date();
+      const currentTimestamp = currentDate.getTime();
+      const ms = selectedTimestamp - currentTimestamp;
+      const remainingTimeObject = convertMs(ms);
+      secondsDisplay.innerHTML = addLeadingZero(remainingTimeObject.seconds);
+      minutessDisplay.innerHTML = addLeadingZero(remainingTimeObject.minutes);
+      hoursDisplay.innerHTML = addLeadingZero(remainingTimeObject.hours);
+      daysDisplay.innerHTML = addLeadingZero(remainingTimeObject.days);
+      const endOfTime = remainingTimeObject.days == 0 && remainingTimeObject.hours == 0 && remainingTimeObject.minutes == 0 && remainingTimeObject.seconds == 0;
+
+      if (endOfTime) {
+        clearInterval(intervalId);
+      }
+      
     }, 1000);
 
 });
