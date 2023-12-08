@@ -1,5 +1,5 @@
 import Notiflix from 'notiflix';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 
 
 function createPromise(position, delay) {
